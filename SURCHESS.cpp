@@ -1,14 +1,14 @@
 #include<bits/stdc++.h>
 using namespace std;
-int n,m,qv,q,a[202][202],b[202][202];
-int c[202][202],dp1[202][202],dp2[202][202];
+int n,m,qv,q,a[202][202],b[202][202], c[202][202],dp1[202][202],dp2[202][202];
 vector <int> ch(201);
 
-void __init() {
+void init() {
 	for(int i=1;i<=200;i++)
-		for(int j=1;j<=200;j++)
-			b[i][j] = (i+j)&1,
+		for(int j=1;j<=200;j++){
+			b[i][j] = (i+j)&1;
 			c[i][j] = !((i+j)&1);
+		}
 }
 
 void make_dp() {
@@ -31,22 +31,22 @@ void make_dp() {
 
 	for(int i=n;i>=1;i--)
 		for(int j=i;j<=n;j++)
-			for(int k=i;k<=m;k++)
-				ch[i] = min(ch[i],dp1[j][k]+dp1[j-i][k-i]-dp1[j-i][k]-dp1[j][k-i]),
+			for(int k=i;k<=m;k++) {
+				ch[i] = min(ch[i],dp1[j][k]+dp1[j-i][k-i]-dp1[j-i][k]-dp1[j][k-i]);
 				ch[i] = min(ch[i],dp2[j][k]+dp2[j-i][k-i]-dp2[j][k-i]-dp2[j-i][k]);
+			}
 }
 
 int main() {
 	char cha;
-	__init();
+	init();
 	cin>>n>>m;
 	for(int i=1;i<=n;i++)
 		for(int j=1;j<=m;j++) {
 			cin>>cha;
+			a[i][j] = 0;
 			if(cha=='1')
-				a[i][j] = 1;
-			else
-				a[i][j] = 0;
+				a[i][j] = 1;				
 		}
 	make_dp();
 	cin>>q;
