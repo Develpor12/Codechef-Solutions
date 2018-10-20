@@ -27,10 +27,6 @@ int main(){
 			pk[te]=pk[i]*pri[j];	
 		}
 	}
-	/*te=0;
-	fo(i,1,mn) if (pk[i]==i) te++;
-	printf("%d\n",te); */
-	//printf("%d\n",pk[mn]);
 	scanf("%d",&n);
 	fo(i,1,n){
 		scanf("%d",&a[i]);
@@ -45,7 +41,7 @@ int main(){
 		printf("%d\n",n);
 		return 0;
 	}
-	fo(i,1,mn) if (c[i]) v[++vt]=i;//fd(i,mn,1)!!!!! 
+	fo(i,1,mn) if (c[i]) v[++vt]=i; 
 	while (vt){
 		q[he=ta=1]=v[vt];
 		fo(i,1,vt-1) if (gcd(v[i],v[vt])==1){
@@ -75,12 +71,6 @@ int main(){
 			}
 			he++;
 		}
-		/*G=v[1];
-		fo(i,2,vt) G=gcd(G,v[i]); 
-		if (G>1){
-			fo(i,1,vt) tot+=c[v[i]]; 
-			break;
-		}*/
 	}
 	printf("%d\n",tot);
 	return 0;
