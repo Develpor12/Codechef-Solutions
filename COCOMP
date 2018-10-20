@@ -1,0 +1,87 @@
+#include<bits/stdc++.h>
+#define fo(i,a,b) for(int i=a;i<=b;i++)
+#define fd(i,a,b) for(int i=a;i>=b;i--)
+int G,n,a[210000],tot,q[210000],he,ta,c[210000],v[210000],vt,vm;
+bool b[210000];
+int gcd(int a,int b){
+	if (!b) return a;
+	return gcd(b,a%b);
+}
+const int mn=200000;
+int pk[mn+30],pri[mn+30],pt;
+long long te;
+int main(){
+	pk[1]=1;
+	fo(i,2,mn){
+		if (!pk[i]){
+			pri[++pt]=i;
+			pk[i]=i;
+		}
+		fo(j,1,pt){
+			te=i*1ll*pri[j];
+			if (te>mn) break;
+			if (i%pri[j]==0){
+				pk[te]=pk[i];
+				break;
+			}
+			pk[te]=pk[i]*pri[j];	
+		}
+	}
+	/*te=0;
+	fo(i,1,mn) if (pk[i]==i) te++;
+	printf("%d\n",te); */
+	//printf("%d\n",pk[mn]);
+	scanf("%d",&n);
+	fo(i,1,n){
+		scanf("%d",&a[i]);
+		if (a[i]==1){
+			printf("1\n");
+			return 0; 
+		}
+		G=gcd(a[i],G);
+		c[pk[a[i]]]++;
+	}	
+	if (G>1){
+		printf("%d\n",n);
+		return 0;
+	}
+	fo(i,1,mn) if (c[i]) v[++vt]=i;//fd(i,mn,1)!!!!! 
+	while (vt){
+		q[he=ta=1]=v[vt];
+		fo(i,1,vt-1) if (gcd(v[i],v[vt])==1){
+			q[++ta]=v[i];
+			v[i]=0;
+		}
+		if (ta==1){
+			tot+=c[v[vt]];vt--;
+			continue;
+		}
+		tot++;vt--;he++;
+		while (he<=ta){
+			vm=0;G=q[he];//G=0;
+			fo(i,1,vt) if (v[i]){
+				v[++vm]=v[i];
+				G=gcd(v[i],G);
+			}
+			vt=vm;
+			if (n>500&&G>1){
+				fo(i,1,vt) tot+=c[v[i]];
+				vt=0;
+				break;
+			}			
+			fd(i,vt,1) if (gcd(v[i],q[he])==1){
+				q[++ta]=v[i];
+				v[i]=0;
+			}
+			he++;
+		}
+		/*G=v[1];
+		fo(i,2,vt) G=gcd(G,v[i]); 
+		if (G>1){
+			fo(i,1,vt) tot+=c[v[i]]; 
+			break;
+		}*/
+	}
+	printf("%d\n",tot);
+	return 0;
+}
