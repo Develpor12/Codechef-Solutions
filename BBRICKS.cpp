@@ -2,8 +2,7 @@
 using namespace std;
 typedef long long ll;
 
-ll mod = 1000000007, dp[1002][1002];
-ll cal[1002], fac[1000001];
+ll mod = 1000000007, dp[1002][1002], cal[1002], fac[1000001];
 	
 ll fastmod(ll  base,ll p)
 {
@@ -34,7 +33,7 @@ void calc(int f) {
 		cal[i] = (cal[i-1]*(f-i))%mod;
 }
 
-void __init() {
+void init() {
 	fac[0] = 1;
 	for(int i=1;i<=1000000;i++)
 		fac[i] = (fac[i-1]*i)%mod;
@@ -44,7 +43,7 @@ void __init() {
 			dp[i][j] = nCr(i-1,i-j);
 }
 int main() {
-	__init();
+	init();
 	ll t,n,k;
 	cin>>t;
 	while(t--) {
